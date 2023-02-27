@@ -1,0 +1,54 @@
+{
+  "name": "react-table-context",
+  "version": "0.0.6",
+  "description": "Table Context Manager",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn tsc",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn prettier && yarn lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliGhaleyan/react-table-context.git"
+  },
+  "author": "AliGhaleyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AliGhaleyan/react-table-context/issues"
+  },
+  "homepage": "https://github.com/AliGhaleyan/react-table-context#readme",
+  "dependencies": {
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.4"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "react",
+    "typescript",
+    "awesome-project"
+  ],
+  "peerDependencies": {
+    "react": ">=16"
+  }
+}
