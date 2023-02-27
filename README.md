@@ -30,10 +30,14 @@ const {state, dispatch} = useTableContext<T>();
 | selected     | `number[]` or `undefined`                                                                                                  | Selected rows ids                                                       |
 
 ### State
+
 > **Note:** The state includes all props
 
-| Name          | Type                                                                                                                             | Description                                          |
-|---------------|----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| isAllSelected | `boolean`                                                                                                                        | If all rows are selected it should be `true`         |
-| sort          | `type TableSortType<T extends TableRecord> = { key: keyof T; order: TableSortOrder; }`                              | Sort state type. `TableSortOrder` is `"asc" or "desc"` |
-| filters | Array of `type TableFilterType<T extends TableRecord> = { key: keyof T; value: string or Record<string, unknown>; }` |                                                      |
+| Name          | Type                                                                                                                 | Description                                            |
+|---------------|----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| isAllSelected | `boolean`                                                                                                            | If all rows are selected it should be `true`           |
+| sort          | `type TableSortType<T extends TableRecord> = { key: keyof T; order: TableSortOrder; }`                               | Sort state type. `TableSortOrder` is `"asc" or "desc"` |
+| filters | Array of `type TableFilterType<T extends TableRecord> = { key: keyof T; value: string or Record<string, unknown>; }` |                                                        |
+| page              | `number`                                                                                                              | Current page number. Is optional.                      |
+| perPage              | `number`                                                                                                              | Page size number. Is optional.                         |
+| total              | `number`                                                                                                              | Number of all rows. Is optional.                       |
