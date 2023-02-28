@@ -41,3 +41,15 @@ const {state, dispatch} = useTableContext<T>();
 | page              | `number`                                                                                                              | Current page number. Is optional.                      |
 | perPage              | `number`                                                                                                              | Page size number. Is optional.                         |
 | total              | `number`                                                                                                              | Number of all rows. Is optional.                       |
+
+### Actions
+| Type            | Payload                                                |
+|-----------------|--------------------------------------------------------|
+ | toggle-selected | `{ id: number }`                                       |
+| toggle-select-all                |                                                        |
+| set-sort                | `TableSortType`                                        |
+ | set-filter | `TableFilterType<T extends TableRecord = TableRecord>` |
+| go-to-page                | `{ page: number }`                                     |
+ | next-page |                                                        |
+| prev-page                |                                                        |
+| set-pagination                | `{ page?: number; perPage?: number; total?: number }`  |

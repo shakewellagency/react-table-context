@@ -71,7 +71,7 @@ var createTableReducer = function () {
           isAllSelected: true,
         })
       case 'set-sort':
-        return __assign(__assign({}, state), { sort: action.payload.sort })
+        return __assign(__assign({}, state), { sort: action.payload })
       case 'set-filter': {
         var filters = __spreadArray([], (_b = state.filters) !== null && _b !== void 0 ? _b : [], true)
         var index = filters.findIndex(function (x) {

@@ -50,7 +50,7 @@ export const createTableReducer = <T extends TableRecord = TableRecord>() => {
 
         return { ...state, selected: state.data.map((x) => x.id), isAllSelected: true }
       case 'set-sort':
-        return { ...state, sort: action.payload.sort }
+        return { ...state, sort: action.payload }
       case 'set-filter': {
         const filters = [...(state.filters ?? [])]
         const index = filters.findIndex((x) => x.key == action.payload.key)

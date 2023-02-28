@@ -13,9 +13,7 @@ type ToggleSelectedAllAction = {
 
 type SortAction = {
   type: 'set-sort'
-  payload: {
-    sort?: TableSortType
-  }
+  payload: TableSortType
 }
 
 type SetFilterAction<T extends TableRecord = TableRecord> = {
