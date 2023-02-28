@@ -1,6 +1,6 @@
 {
   "name": "react-table-context",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Table Context Manager",
   "main": "dist/index.js",
   "module": "dist/index.js",
