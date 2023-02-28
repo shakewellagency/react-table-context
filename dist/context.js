@@ -39,6 +39,15 @@ var TableContextProvider = function (_a) {
     ),
     state = _b[0],
     dispatch = _b[1]
+  ;(0, react_1.useEffect)(
+    function () {
+      dispatch({
+        type: 'set-pagination',
+        payload: { page: props.initialPage, perPage: props.perPage, total: props.total },
+      })
+    },
+    [props.initialPage, props.total, props.perPage],
+  )
   return (0, jsx_runtime_1.jsx)(
     exports.TableContext.Provider,
     __assign({ value: { state: state, dispatch: dispatch } }, { children: children }),

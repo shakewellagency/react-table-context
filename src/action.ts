@@ -32,7 +32,7 @@ type NextPageAction = { type: 'next-page' }
 
 type PrevPageAction = { type: 'prev-page' }
 
-type SetPerPageAction = { type: 'set-per-page'; payload: { perPage: number } }
+export type SetPagination = { type: 'set-pagination'; payload: { page?: number; perPage?: number; total?: number } }
 
 export type TableAction<T extends TableRecord = TableRecord> =
   | ToggleSelectedAction
@@ -42,4 +42,4 @@ export type TableAction<T extends TableRecord = TableRecord> =
   | GoToPageAction
   | NextPageAction
   | PrevPageAction
-  | SetPerPageAction
+  | SetPagination

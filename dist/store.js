@@ -31,10 +31,30 @@ exports.initialState = {
   columns: [],
   data: [],
   page: 1,
+  hasPrevPage: false,
+  hasNextPage: false,
+  total: 0,
+  perPage: 0,
+  lastPage: 0,
+}
+var setPagination = function (state, action) {
+  var _a, _b, _c
+  var page = (_a = action.page) !== null && _a !== void 0 ? _a : state.page
+  var total = (_b = state.total) !== null && _b !== void 0 ? _b : action.total
+  var perPage = (_c = state.perPage) !== null && _c !== void 0 ? _c : action.perPage
+  var lastPage = Math.ceil(total / perPage)
+  return __assign(__assign({}, state), {
+    page: page,
+    perPage: perPage,
+    total: total,
+    lastPage: lastPage,
+    hasPrevPage: page > 1,
+    hasNextPage: !!state.lastPage && page < state.lastPage,
+  })
 }
 var createTableReducer = function () {
   return function (state, action) {
-    var _a, _b
+    var _a, _b, _c
     switch (action.type) {
       case 'toggle-selected': {
         var temp = __spreadArray([], (_a = state.selected) !== null && _a !== void 0 ? _a : [], true)
@@ -65,13 +85,13 @@ var createTableReducer = function () {
         return __assign(__assign({}, state), { filters: filters })
       }
       case 'go-to-page':
-        return __assign(__assign({}, state), { page: action.payload.page })
+        return setPagination(state, { page: action.payload.page })
       case 'next-page':
-        return __assign(__assign({}, state), { page: state.page ? state.page + 1 : 1 })
+        return setPagination(state, { page: ((_c = state.page) !== null && _c !== void 0 ? _c : 0) + 1 })
       case 'prev-page':
-        return __assign(__assign({}, state), { page: state.page ? state.page - 1 : 1 })
-      case 'set-per-page':
-        return __assign(__assign({}, state), { perPage: action.payload.perPage })
+        return setPagination(state, { page: state.page ? state.page - 1 : 1 })
+      case 'set-pagination':
+        return setPagination(state, action.payload)
       default:
         throw Error
     }

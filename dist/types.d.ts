@@ -8,6 +8,9 @@ export type TableProps<T extends TableRecord = TableRecord> = {
   data: T[]
   isSelectable?: boolean
   selected?: number[]
+  initialPage?: number
+  perPage?: number
+  total?: number
 }
 export type TableColumnType<T extends TableRecord = TableRecord> = {
   title: string
@@ -24,12 +27,15 @@ export type TableSortType<T extends TableRecord = TableRecord> = {
   order: TableSortOrder
 }
 export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
+  page: number
+  perPage: number
+  total: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
+  lastPage: number
   isAllSelected?: boolean
   sort?: TableSortType
   filters?: TableFilterType[]
-  page?: number
-  perPage?: number
-  total?: number
 }
 export type TableContextProps<T extends TableRecord = TableRecord> = {
   state: TableState<T>

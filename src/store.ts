@@ -1,10 +1,35 @@
 import { TableRecord, TableState } from './types'
-import { TableAction } from './action'
+import { SetPagination, TableAction } from './action'
 
 export const initialState: TableState = {
   columns: [],
   data: [],
   page: 1,
+  hasPrevPage: false,
+  hasNextPage: false,
+  total: 0,
+  perPage: 0,
+  lastPage: 0,
+}
+
+const setPagination = <T extends TableRecord = TableRecord>(
+  state: TableState<T>,
+  action: SetPagination['payload'],
+): TableState<T> => {
+  const page = action.page ?? state.page
+  const total = state.total ?? action.total
+  const perPage = state.perPage ?? action.perPage
+  const lastPage = Math.ceil(total / perPage)
+
+  return {
+    ...state,
+    page,
+    perPage,
+    total,
+    lastPage,
+    hasPrevPage: page > 1,
+    hasNextPage: !!state.lastPage && page < state.lastPage,
+  }
 }
 
 export const createTableReducer = <T extends TableRecord = TableRecord>() => {
@@ -37,13 +62,17 @@ export const createTableReducer = <T extends TableRecord = TableRecord>() => {
         return { ...state, filters }
       }
       case 'go-to-page':
-        return { ...state, page: action.payload.page }
+        return setPagination<T>(state, { page: action.payload.page })
+
       case 'next-page':
-        return { ...state, page: state.page ? state.page + 1 : 1 }
+        return setPagination<T>(state, { page: (state.page ?? 0) + 1 })
+
       case 'prev-page':
-        return { ...state, page: state.page ? state.page - 1 : 1 }
-      case 'set-per-page':
-        return { ...state, perPage: action.payload.perPage }
+        return setPagination<T>(state, { page: state.page ? state.page - 1 : 1 })
+
+      case 'set-pagination':
+        return setPagination<T>(state, action.payload)
+
       default:
         throw Error
     }
