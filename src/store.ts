@@ -5,6 +5,7 @@ export const initialState: TableState = {
   initialized: false,
   columns: [],
   data: [],
+  selected: [],
   page: 1,
   hasPrevPage: false,
   hasNextPage: false,

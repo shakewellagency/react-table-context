@@ -6,8 +6,8 @@ export type TableRecord = {
 export type TableProps<T extends TableRecord = TableRecord> = {
     columns: TableColumnType<T>[];
     data: T[];
+    selected: number[];
     isSelectable?: boolean;
-    selected?: number[];
     initialPage?: number;
     perPage?: number;
     total?: number;

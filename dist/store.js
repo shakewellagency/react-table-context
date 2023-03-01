@@ -25,6 +25,7 @@ exports.initialState = {
     initialized: false,
     columns: [],
     data: [],
+    selected: [],
     page: 1,
     hasPrevPage: false,
     hasNextPage: false,

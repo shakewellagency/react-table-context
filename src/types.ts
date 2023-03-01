@@ -5,8 +5,8 @@ export type TableRecord = { id: number } & Record<string, unknown>
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
   data: T[]
+  selected: number[]
   isSelectable?: boolean
-  selected?: number[]
   initialPage?: number
   perPage?: number
   total?: number
