@@ -25,7 +25,7 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
       ))
   | {
       type: 'action'
-      render: (item: T, index: number) => string | React.ReactElement
+      renderActions: (item: T, index: number) => string | React.ReactElement
     }
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
