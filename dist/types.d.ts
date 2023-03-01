@@ -15,12 +15,17 @@ export type TableProps<T extends TableRecord = TableRecord> = {
 type DefaultColumnType<T extends TableRecord = TableRecord> = {
   title: string
   key: keyof T
-  dataIndex: DotNestedKeys<T>
 }
 export type TableColumnType<T extends TableRecord = TableRecord> =
-  | (DefaultColumnType<T> & {
-      render?: (item: T, column: DefaultColumnType<T>, index: number) => string | React.ReactElement
-    })
+  | (DefaultColumnType<T> &
+      (
+        | {
+            dataIndex: DotNestedKeys<T>
+          }
+        | {
+            render?: (item: T, column: DefaultColumnType<T>, index: number) => string | React.ReactElement
+          }
+      ))
   | {
       type: 'action'
       render: (item: T, index: number) => string | React.ReactElement
