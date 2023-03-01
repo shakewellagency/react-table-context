@@ -8,8 +8,10 @@ Let us create and manage your table states. You just create the UI :)
 ### Usage:
 
 ```tsx
-<TableContextProvider {...props}>
-  {/* child components */}
+<TableContextProvider>
+    <TableContext {...props}>
+        {/* child components */}
+    </TableContext>
 </TableContextProvider>
 ```
 
