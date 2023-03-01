@@ -1,25 +1,12 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
-import { TableContextProps, TableProps, TableRecord, TableState } from './types'
-import { createTableReducer, initialState } from './store'
+import { createContext, useContext, useReducer } from 'react'
+import { TableContextProps, TableRecord, TableState } from './types'
+import { initialState, reducer } from './store'
 import { TableAction } from './action'
 
 export const TableContext = createContext<TableContextProps | undefined>(undefined)
 
-export const TableContextProvider = <T extends TableRecord = TableRecord>({
-  children,
-  ...props
-}: React.PropsWithChildren<TableProps<T>>) => {
-  const [state, dispatch] = useReducer<React.Reducer<TableState<T>, TableAction>>(createTableReducer<T>(), {
-    ...initialState,
-    ...props,
-  })
-
-  useEffect(() => {
-    dispatch({
-      type: 'set-pagination',
-      payload: { page: props.initialPage, perPage: props.perPage, total: props.total },
-    })
-  }, [props.initialPage, props.total, props.perPage])
+export const TableContextProvider = ({ children }: React.PropsWithChildren) => {
+  const [state, dispatch] = useReducer<React.Reducer<TableState, TableAction>>(reducer, initialState)
 
   return <TableContext.Provider value={{ state: state as TableState, dispatch }}>{children}</TableContext.Provider>
 }

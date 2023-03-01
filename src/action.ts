@@ -1,4 +1,4 @@
-import { TableFilterType, TableRecord, TableSortType } from './types'
+import { TableFilterType, TableProps, TableRecord, TableSortType } from './types'
 
 type ToggleSelectedAction = {
   type: 'toggle-selected'
@@ -32,6 +32,8 @@ type PrevPageAction = { type: 'prev-page' }
 
 export type SetPagination = { type: 'set-pagination'; payload: { page?: number; perPage?: number; total?: number } }
 
+type Initialize<T extends TableRecord = TableRecord> = { type: 'initialize'; payload: TableProps<T> }
+
 export type TableAction<T extends TableRecord = TableRecord> =
   | ToggleSelectedAction
   | ToggleSelectedAllAction
@@ -41,3 +43,4 @@ export type TableAction<T extends TableRecord = TableRecord> =
   | NextPageAction
   | PrevPageAction
   | SetPagination
+  | Initialize<T>

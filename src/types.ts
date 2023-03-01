@@ -17,11 +17,16 @@ type DefaultColumnType<T extends TableRecord = TableRecord> = {
   key: keyof T
 }
 
+type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
+  item: T,
+  column: DefaultColumnType<T>,
+  index: number,
+) => string | React.ReactElement
+
 export type TableColumnType<T extends TableRecord = TableRecord> =
-  | (DefaultColumnType<T> &
-      (
-        | { dataIndex: DotNestedKeys<T> }
-        | { render?: (item: T, column: DefaultColumnType<T>, index: number) => string | React.ReactElement }
+  | (DefaultColumnType<T> & { type?: undefined } & (
+        | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
+        | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
       ))
   | {
       type: 'action'
@@ -52,6 +57,7 @@ export type TableSortType<T extends TableRecord = TableRecord> = {
 }
 
 export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
+  initialized: boolean
   page: number
   perPage: number
   total: number
