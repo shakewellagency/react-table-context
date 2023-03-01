@@ -12,16 +12,19 @@ export type TableProps<T extends TableRecord = TableRecord> = {
   perPage?: number
   total?: number
 }
-export interface TableColumnType<T extends TableRecord = TableRecord> {
+type DefaultColumnType<T extends TableRecord = TableRecord> = {
   title: string
   key: keyof T
   dataIndex: DotNestedKeys<T>
-  render?: (options: {
-    value: T[DotNestedKeys<T>]
-    column: TableColumnType<T>
-    index?: number
-  }) => string | React.ReactElement
 }
+export type TableColumnType<T extends TableRecord = TableRecord> =
+  | (DefaultColumnType<T> & {
+      render?: (item: T, column: DefaultColumnType<T>, index: number) => string | React.ReactElement
+    })
+  | {
+      type: 'action'
+      render: (item: T, index: number) => string | React.ReactElement
+    }
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
 type DotNestedKeys<T> = (
   T extends object
