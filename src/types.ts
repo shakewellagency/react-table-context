@@ -12,11 +12,27 @@ export type TableProps<T extends TableRecord = TableRecord> = {
   total?: number
 }
 
-export type TableColumnType<T extends TableRecord = TableRecord> = {
+export interface TableColumnType<T extends TableRecord = TableRecord> {
   title: string
   key: keyof T
-  dataIndex: keyof T
+  dataIndex: DotNestedKeys<T>
+  render?: (options: {
+    value: T[DotNestedKeys<T>]
+    column: TableColumnType<T>
+    index?: number
+  }) => string | React.ReactElement
 }
+
+type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
+type DotNestedKeys<T> = (
+  T extends object
+    ? {
+        [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}`
+      }[Exclude<keyof T, symbol>]
+    : ''
+) extends infer D
+  ? Extract<D, string>
+  : never
 
 export type TableFilterType<T extends TableRecord = TableRecord> = {
   key: keyof T
