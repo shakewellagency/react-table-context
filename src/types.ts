@@ -33,7 +33,7 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
       dataIndex?: DotNestedKeys<T>
       type: 'action'
       render?: ColumnRenderFunction<T>
-      renderActions: (item: T) => string | React.ReactElement
+      renderActions?: (item: T) => string | React.ReactElement
     }
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
