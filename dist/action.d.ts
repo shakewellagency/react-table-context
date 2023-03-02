@@ -11,6 +11,12 @@ type ToggleSelectedAction = {
     id: number
   }
 }
+type SetSelectedAction = {
+  type: 'set-selected'
+  payload: {
+    ids: number[]
+  }
+}
 type ToggleSelectedAllAction = {
   type: 'toggle-select-all'
 }
@@ -52,6 +58,7 @@ type Initialize<T extends TableRecord = TableRecord> = {
 }
 export type TableAction<T extends TableRecord = TableRecord> =
   | SetData
+  | SetSelectedAction
   | ToggleSelectedAction
   | ToggleSelectedAllAction
   | SortAction

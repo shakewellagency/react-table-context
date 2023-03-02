@@ -61,6 +61,11 @@ var reducer = function (state, action) {
       return __assign(__assign(__assign({}, state), action.payload), { initialized: true })
     case 'set-data':
       return __assign(__assign({}, state), { data: action.payload.data })
+    case 'set-selected':
+      return __assign(__assign({}, state), {
+        selected: action.payload.ids,
+        isAllSelected: action.payload.ids.length === state.data.length,
+      })
     case 'toggle-selected': {
       var temp = __spreadArray([], (_a = state.selected) !== null && _a !== void 0 ? _a : [], true)
       if (temp.includes(action.payload.id)) temp.splice(temp.indexOf(action.payload.id), 1)
