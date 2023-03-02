@@ -45,9 +45,9 @@ type DotNestedKeys<T> = (
   ? Extract<D, string>
   : never
 
-export type TableFilterType<T extends TableRecord = TableRecord> = {
+export type TableFilterType<T extends TableRecord = TableRecord, Value = unknown> = {
   key: keyof T
-  value: string | Record<string, unknown>
+  value: Value
 }
 
 export type TableSortOrder = 'asc' | 'desc'
