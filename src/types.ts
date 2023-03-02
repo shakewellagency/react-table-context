@@ -1,4 +1,4 @@
-import { TableAction } from './action'
+import {TableAction} from './action'
 
 export type TableRecord = { id: number } & Record<string, unknown>
 
@@ -16,34 +16,37 @@ type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
   column: TableColumnType<T>,
 ) => string | React.ReactElement
 
+type ColumnRenderActionsFunction<T extends TableRecord = TableRecord> = (item: T) => string | React.ReactElement
+
 export type TableColumnType<T extends TableRecord = TableRecord> =
   | ({
-      title: string
-      key: keyof T
-      className?: string
-      type?: undefined
-    } & (
-      | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
-      | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
-    ))
+  title: string
+  key: keyof T
+  className?: string
+  type?: undefined,
+  renderActions?: ColumnRenderActionsFunction<T>
+} & (
+  | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
+  | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
+  ))
   | {
-      title?: string
-      key?: keyof T
-      className?: string
-      dataIndex?: DotNestedKeys<T>
-      type: 'action'
-      render?: ColumnRenderFunction<T>
-      renderActions?: (item: T) => string | React.ReactElement
-    }
+  title?: string
+  key?: keyof T
+  className?: string
+  dataIndex?: DotNestedKeys<T>
+  type: 'action'
+  render?: ColumnRenderFunction<T>
+  renderActions?: ColumnRenderActionsFunction<T>
+}
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
 type DotNestedKeys<T> = (
   T extends object
     ? {
-        [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}`
-      }[Exclude<keyof T, symbol>]
+      [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}`
+    }[Exclude<keyof T, symbol>]
     : ''
-) extends infer D
+  ) extends infer D
   ? Extract<D, string>
   : never
 
