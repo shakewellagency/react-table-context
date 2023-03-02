@@ -4,7 +4,6 @@ export type TableRecord = { id: number } & Record<string, unknown>
 
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
-  data: T[]
   selected?: number[]
   isSelectable?: boolean
   initialPage?: number
@@ -61,6 +60,7 @@ export type TableSortType<T extends TableRecord = TableRecord> = {
 }
 
 export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
+  data: T[]
   initialized: boolean
   page: number
   perPage: number

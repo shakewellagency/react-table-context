@@ -1,5 +1,11 @@
 import { TableFilterType, TableProps, TableRecord, TableSortType } from './types'
 
+type SetData = {
+  type: 'set-data'
+  payload: {
+    data: TableRecord[]
+  }
+}
 type ToggleSelectedAction = {
   type: 'toggle-selected'
   payload: {
@@ -40,6 +46,7 @@ export type SetPagination = { type: 'set-pagination'; payload: { page?: number; 
 type Initialize<T extends TableRecord = TableRecord> = { type: 'initialize'; payload: TableProps<T> }
 
 export type TableAction<T extends TableRecord = TableRecord> =
+  | SetData
   | ToggleSelectedAction
   | ToggleSelectedAllAction
   | SortAction
