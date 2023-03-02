@@ -1,11 +1,11 @@
-import { TableAction } from './action'
+import {TableAction} from './action'
 
 export type TableRecord = { id: number } & Record<string, unknown>
 
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
   data: T[]
-  selected: number[]
+  selected?: number[]
   isSelectable?: boolean
   initialPage?: number
   perPage?: number
@@ -25,23 +25,33 @@ type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
 ) => string | React.ReactElement
 
 export type TableColumnType<T extends TableRecord = TableRecord> =
-  | (DefaultColumnType<T> & { type?: undefined } & (
-        | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
-        | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
-      ))
-  | (Pick<DefaultColumnType, 'className'> & {
-      type: 'action'
-      renderActions: (item: T, index: number) => string | React.ReactElement
-    })
+  | (
+  {
+    title: string
+    key: keyof T
+    className?: string
+    type?: undefined
+  } & (
+  | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
+  | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
+  )
+  )
+  | ({
+  title?: string
+  key?: keyof T
+  className?: string
+  type: 'action'
+  renderActions: (item: T, index: number) => string | React.ReactElement
+})
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
 type DotNestedKeys<T> = (
   T extends object
     ? {
-        [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}`
-      }[Exclude<keyof T, symbol>]
+      [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}`
+    }[Exclude<keyof T, symbol>]
     : ''
-) extends infer D
+  ) extends infer D
   ? Extract<D, string>
   : never
 
@@ -65,6 +75,7 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
   hasPrevPage: boolean
   hasNextPage: boolean
   lastPage: number
+  selected: number[]
   isAllSelected?: boolean
   sort?: TableSortType
   filters?: TableFilterType[]
