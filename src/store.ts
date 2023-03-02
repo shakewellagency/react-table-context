@@ -37,6 +37,8 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
       return { ...state, ...action.payload, initialized: true }
     case 'set-data':
       return { ...state, data: action.payload.data }
+    case "set-selected":
+      return { ...state, selected: action.payload.ids, isAllSelected: action.payload.ids.length === state.data.length };
     case 'toggle-selected': {
       const temp = [...(state.selected ?? [])]
       if (temp.includes(action.payload.id)) temp.splice(temp.indexOf(action.payload.id), 1)

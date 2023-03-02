@@ -6,10 +6,18 @@ type SetData = {
     data: TableRecord[]
   }
 }
+
 type ToggleSelectedAction = {
   type: 'toggle-selected'
   payload: {
     id: number
+  }
+}
+
+type SetSelectedAction = {
+  type: 'set-selected'
+  payload: {
+    ids: number[]
   }
 }
 
@@ -47,6 +55,7 @@ type Initialize<T extends TableRecord = TableRecord> = { type: 'initialize'; pay
 
 export type TableAction<T extends TableRecord = TableRecord> =
   | SetData
+  | SetSelectedAction
   | ToggleSelectedAction
   | ToggleSelectedAllAction
   | SortAction
