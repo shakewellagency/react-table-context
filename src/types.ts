@@ -34,6 +34,7 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
       className?: string
       dataIndex?: DotNestedKeys<T>
       type: 'action'
+      render?: ColumnRenderFunction<T>
       renderActions: (item: T, index: number) => string | React.ReactElement
     }
 
