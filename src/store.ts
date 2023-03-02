@@ -61,6 +61,8 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
       }
       return { ...state, filters }
     }
+    case 'set-filters':
+      return { ...state, filters: action.payload }
     case 'go-to-page':
       return setPagination(state, { page: action.payload.page })
 
