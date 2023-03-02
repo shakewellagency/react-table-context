@@ -14,7 +14,8 @@ export type TableProps<T extends TableRecord = TableRecord> = {
 
 type DefaultColumnType<T extends TableRecord = TableRecord> = {
   title: string
-  key: keyof T
+  key: keyof T,
+  className?: string
 }
 
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
@@ -28,10 +29,10 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
         | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
         | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
       ))
-  | {
+  | (Pick<DefaultColumnType, "className"> & {
       type: 'action'
       renderActions: (item: T, index: number) => string | React.ReactElement
-    }
+    })
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
 type DotNestedKeys<T> = (
