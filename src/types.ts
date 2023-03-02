@@ -12,15 +12,9 @@ export type TableProps<T extends TableRecord = TableRecord> = {
   total?: number
 }
 
-type DefaultColumnType<T extends TableRecord = TableRecord> = {
-  title: string
-  key: keyof T
-  className?: string
-}
-
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
   item: T,
-  column: DefaultColumnType<T>,
+  column: TableColumnType<T>,
   index: number,
 ) => string | React.ReactElement
 
