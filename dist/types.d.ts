@@ -15,7 +15,6 @@ export type TableProps<T extends TableRecord = TableRecord> = {
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
   item: T,
   column: TableColumnType<T>,
-  index: number,
 ) => string | React.ReactElement
 export type TableColumnType<T extends TableRecord = TableRecord> =
   | ({
