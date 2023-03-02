@@ -31,7 +31,8 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
   | {
       title?: string
       key?: keyof T
-      className?: string
+      className?: string,
+      dataIndex?: DotNestedKeys<T>
       type: 'action'
       renderActions: (item: T, index: number) => string | React.ReactElement
     }
