@@ -87,6 +87,8 @@ var reducer = function (state, action) {
       }
       return __assign(__assign({}, state), { filters: filters })
     }
+    case 'set-filters':
+      return __assign(__assign({}, state), { filters: action.payload })
     case 'go-to-page':
       return setPagination(state, { page: action.payload.page })
     case 'next-page':

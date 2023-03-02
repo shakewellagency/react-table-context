@@ -16,6 +16,10 @@ type SetFilterAction<T extends TableRecord = TableRecord> = {
   type: 'set-filter'
   payload: TableFilterType<T>
 }
+type SetFiltersAction<T extends TableRecord = TableRecord> = {
+  type: 'set-filters'
+  payload: TableFilterType<T>[]
+}
 type GoToPageAction = {
   type: 'go-to-page'
   payload: {
@@ -45,6 +49,7 @@ export type TableAction<T extends TableRecord = TableRecord> =
   | ToggleSelectedAllAction
   | SortAction
   | SetFilterAction<T>
+  | SetFiltersAction<T>
   | GoToPageAction
   | NextPageAction
   | PrevPageAction
