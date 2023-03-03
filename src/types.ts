@@ -4,8 +4,6 @@ export type TableRecord = { id: number } & Record<string, unknown>
 
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
-  selected?: number[]
-  isSelectable?: boolean
 }
 
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
