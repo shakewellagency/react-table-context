@@ -56,7 +56,7 @@ var setPagination = function (state, action) {
     from: from,
     to: to,
     hasPrevPage: page > 1,
-    hasNextPage: !!state.lastPage && page < state.lastPage,
+    hasNextPage: !!lastPage && page < lastPage,
   })
 }
 var reducer = function (state, action) {

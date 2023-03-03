@@ -32,7 +32,7 @@ const setPagination = (state: TableState, action: SetPagination['payload']): Tab
     from,
     to,
     hasPrevPage: page > 1,
-    hasNextPage: !!state.lastPage && page < state.lastPage,
+    hasNextPage: !!lastPage && page < lastPage,
   }
 }
 
