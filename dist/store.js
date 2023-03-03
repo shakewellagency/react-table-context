@@ -44,12 +44,16 @@ var setPagination = function (state, action) {
   var page = (_a = action.page) !== null && _a !== void 0 ? _a : state.page
   var total = (_b = state.total) !== null && _b !== void 0 ? _b : action.total
   var perPage = (_c = state.perPage) !== null && _c !== void 0 ? _c : action.perPage
+  var from = action.from !== undefined ? action.from : state.from
+  var to = action.to !== undefined ? action.to : state.to
   var lastPage = Math.ceil(total / perPage)
   return __assign(__assign({}, state), {
     page: page,
     perPage: perPage,
     total: total,
     lastPage: lastPage,
+    from: from,
+    to: to,
     hasPrevPage: page > 1,
     hasNextPage: !!state.lastPage && page < state.lastPage,
   })

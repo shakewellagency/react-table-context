@@ -18,6 +18,7 @@ type SetSelectedAction = {
   type: 'set-selected'
   payload: {
     ids: number[]
+    isAllSelected?: boolean
   }
 }
 
@@ -49,7 +50,10 @@ type NextPageAction = { type: 'next-page' }
 
 type PrevPageAction = { type: 'prev-page' }
 
-export type SetPagination = { type: 'set-pagination'; payload: { page?: number; perPage?: number; total?: number } }
+export type SetPagination = {
+  type: 'set-pagination'
+  payload: { page?: number; perPage?: number; total?: number; from?: number; to?: number }
+}
 
 type Initialize<T extends TableRecord = TableRecord> = { type: 'initialize'; payload: TableProps<T> }
 

@@ -6,9 +6,6 @@ export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
   selected?: number[]
   isSelectable?: boolean
-  initialPage?: number
-  perPage?: number
-  total?: number
 }
 
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
@@ -72,6 +69,8 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
   hasNextPage: boolean
   lastPage: number
   selected: number[]
+  from?: number
+  to?: number
   isAllSelected?: boolean
   sort?: TableSortType
   filters?: TableFilterType[]

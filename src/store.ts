@@ -18,6 +18,8 @@ const setPagination = (state: TableState, action: SetPagination['payload']): Tab
   const page = action.page ?? state.page
   const total = state.total ?? action.total
   const perPage = state.perPage ?? action.perPage
+  const from = action.from !== undefined ? action.from : state.from
+  const to = action.to !== undefined ? action.to : state.to
   const lastPage = Math.ceil(total / perPage)
 
   return {
@@ -26,6 +28,8 @@ const setPagination = (state: TableState, action: SetPagination['payload']): Tab
     perPage,
     total,
     lastPage,
+    from,
+    to,
     hasPrevPage: page > 1,
     hasNextPage: !!state.lastPage && page < state.lastPage,
   }

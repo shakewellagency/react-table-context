@@ -15,6 +15,7 @@ type SetSelectedAction = {
   type: 'set-selected'
   payload: {
     ids: number[]
+    isAllSelected?: boolean
   }
 }
 type ToggleSelectedAllAction = {
@@ -50,6 +51,8 @@ export type SetPagination = {
     page?: number
     perPage?: number
     total?: number
+    from?: number
+    to?: number
   }
 }
 type Initialize<T extends TableRecord = TableRecord> = {
