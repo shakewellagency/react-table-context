@@ -69,7 +69,7 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
   from?: number
   to?: number
   isAllSelected?: boolean
-  sort?: TableSortType
+  sort?: TableSortType<T>
   filters?: TableFilterType[]
 }
 export type TableContextProps<T extends TableRecord = TableRecord> = {
