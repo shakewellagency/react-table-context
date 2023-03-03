@@ -16,8 +16,8 @@ export const initialState: TableState = {
 
 const setPagination = (state: TableState, action: SetPagination['payload']): TableState => {
   const page = action.page ?? state.page
-  const total = state.total ?? action.total
-  const perPage = state.perPage ?? action.perPage
+  const total = action.total ?? state.total
+  const perPage = action.perPage ?? state.perPage
   const from = action.from !== undefined ? action.from : state.from
   const to = action.to !== undefined ? action.to : state.to
   const lastPage = Math.ceil(total / perPage)
