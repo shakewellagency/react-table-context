@@ -66,6 +66,7 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
   hasPrevPage: boolean
   hasNextPage: boolean
   lastPage: number
+  selectableItemIds: number[]
   selected: number[]
   from?: number
   to?: number

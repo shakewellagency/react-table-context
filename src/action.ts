@@ -4,6 +4,7 @@ type SetData = {
   type: 'set-data'
   payload: {
     data: TableRecord[]
+    selectableItemIds?: number[]
   }
 }
 

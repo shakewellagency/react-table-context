@@ -31,6 +31,7 @@ exports.initialState = {
   initialized: false,
   columns: [],
   data: [],
+  selectableItemIds: [],
   selected: [],
   page: 1,
   hasPrevPage: false,
@@ -59,35 +60,40 @@ var setPagination = function (state, action) {
   })
 }
 var reducer = function (state, action) {
-  var _a, _b, _c
+  var _a, _b, _c, _d
   switch (action.type) {
     case 'initialize':
       return __assign(__assign(__assign({}, state), action.payload), { initialized: true })
-    case 'set-data':
-      return __assign(__assign({}, state), { data: action.payload.data })
+    case 'set-data': {
+      var selectableItemIds =
+        (_a = action.payload.selectableItemIds) !== null && _a !== void 0
+          ? _a
+          : action.payload.data.map(function (x) {
+              return x.id
+            })
+      return __assign(__assign({}, state), { data: action.payload.data, selectableItemIds: selectableItemIds })
+    }
     case 'set-selected':
       return __assign(__assign({}, state), {
         selected: action.payload.ids,
-        isAllSelected: action.payload.ids.length === state.data.length,
+        isAllSelected: action.payload.ids.length === state.selectableItemIds.length,
       })
     case 'toggle-selected': {
-      var temp = __spreadArray([], (_a = state.selected) !== null && _a !== void 0 ? _a : [], true)
+      var temp = __spreadArray([], (_b = state.selected) !== null && _b !== void 0 ? _b : [], true)
       if (temp.includes(action.payload.id)) temp.splice(temp.indexOf(action.payload.id), 1)
       else temp.push(action.payload.id)
-      return __assign(__assign({}, state), { selected: temp, isAllSelected: temp.length === state.data.length })
+      return __assign(__assign({}, state), {
+        selected: temp,
+        isAllSelected: temp.length === state.selectableItemIds.length,
+      })
     }
     case 'toggle-select-all':
       if (state.isAllSelected) return __assign(__assign({}, state), { selected: [], isAllSelected: false })
-      return __assign(__assign({}, state), {
-        selected: state.data.map(function (x) {
-          return x.id
-        }),
-        isAllSelected: true,
-      })
+      return __assign(__assign({}, state), { selected: state.selectableItemIds, isAllSelected: true })
     case 'set-sort':
       return __assign(__assign({}, state), { sort: action.payload })
     case 'set-filter': {
-      var filters = __spreadArray([], (_b = state.filters) !== null && _b !== void 0 ? _b : [], true)
+      var filters = __spreadArray([], (_c = state.filters) !== null && _c !== void 0 ? _c : [], true)
       var index = filters.findIndex(function (x) {
         return x.key == action.payload.key
       })
@@ -103,7 +109,7 @@ var reducer = function (state, action) {
     case 'go-to-page':
       return setPagination(state, { page: action.payload.page })
     case 'next-page':
-      return setPagination(state, { page: ((_c = state.page) !== null && _c !== void 0 ? _c : 0) + 1 })
+      return setPagination(state, { page: ((_d = state.page) !== null && _d !== void 0 ? _d : 0) + 1 })
     case 'prev-page':
       return setPagination(state, { page: state.page ? state.page - 1 : 1 })
     case 'set-pagination':

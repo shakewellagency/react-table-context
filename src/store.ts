@@ -5,6 +5,7 @@ export const initialState: TableState = {
   initialized: false,
   columns: [],
   data: [],
+  selectableItemIds: [],
   selected: [],
   page: 1,
   hasPrevPage: false,
@@ -39,10 +40,16 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
   switch (action.type) {
     case 'initialize':
       return { ...state, ...action.payload, initialized: true }
-    case 'set-data':
-      return { ...state, data: action.payload.data }
+    case 'set-data': {
+      const selectableItemIds = action.payload.selectableItemIds ?? action.payload.data.map((x) => x.id)
+      return { ...state, data: action.payload.data, selectableItemIds }
+    }
     case 'set-selected':
-      return { ...state, selected: action.payload.ids, isAllSelected: action.payload.ids.length === state.data.length }
+      return {
+        ...state,
+        selected: action.payload.ids,
+        isAllSelected: action.payload.ids.length === state.selectableItemIds.length,
+      }
     case 'toggle-selected': {
       const temp = [...(state.selected ?? [])]
       if (temp.includes(action.payload.id)) temp.splice(temp.indexOf(action.payload.id), 1)
@@ -50,13 +57,13 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
       return {
         ...state,
         selected: temp,
-        isAllSelected: temp.length === state.data.length,
+        isAllSelected: temp.length === state.selectableItemIds.length,
       }
     }
     case 'toggle-select-all':
       if (state.isAllSelected) return { ...state, selected: [], isAllSelected: false }
 
-      return { ...state, selected: state.data.map((x) => x.id), isAllSelected: true }
+      return { ...state, selected: state.selectableItemIds, isAllSelected: true }
     case 'set-sort':
       return { ...state, sort: action.payload }
     case 'set-filter': {
