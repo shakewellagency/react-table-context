@@ -18,7 +18,6 @@ type SetSelectedAction = {
   type: 'set-selected'
   payload: {
     ids: number[]
-    isAllSelected?: boolean
   }
 }
 
