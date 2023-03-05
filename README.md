@@ -5,17 +5,82 @@ table states.
 
 Let us create and manage your table states. You just create the UI :)
 
-### Usage:
+#### Install
+```
+npm install react-table-context
 
+yarn add react-table-context
+```
+
+### Usage:
+Create your table component:
+```tsx
+import { TableProps, TableRecord } from "react-table-context";
+
+const TableHeader: React.FC = () => {
+ const {dispatch, state: {columns, sort}} = useTableContext();
+
+ const handleOnClick = () => {
+  const order = sort?.order == "asc" ? "desc" : "asc";
+  dispatch({
+   type: "set-sort",
+   payload: {key: column.key as string, order}
+  });
+ };
+ 
+ return <thead>
+ <tr>
+  {columns.map((column, key) => {
+    if (column.type == "action") return <th />;
+    
+    return <th onClick={handleOnClick}>{column.title}</th>;
+  })}
+ </tr>
+ </thead>;
+}
+
+const Table = <T extends TableRecord = TableRecord>(props: TableProps<T>) => {
+ return <TableContext {...props}>
+  <table>
+   <TableHeader />
+
+   {/* ... */}
+  </table>
+ </TableContext>;
+};
+
+export default Table;
+```
+Content list table:
+```tsx
+import {TableColumnType, useTableContext} from "react-table-context";
+
+const columns: TableColumnType<Content>[] = [
+ {title: "Title", key: "title", dataIndex: "title"},
+];
+
+const ContentListTable: React.Fc = () => {
+ const {state: {sort, filters}} = useTableContext<Content>();
+ const contentQuery = useContentsQuery({sort, filters});
+
+ useEffect(() => {
+   if (contentQuery.data)
+    dispatch({type: "set-data", payload: {data: contentQuery.data}});
+ }, [contentQuery.data]);
+ 
+ return <Table columns={columns}/>;
+};
+
+export default ContentListTable;
+```
+Use content list table:
 ```tsx
 <TableContextProvider>
-    <TableContext {...props}>
-        {/* child components */}
-    </TableContext>
+    <ContentListTable />
 </TableContextProvider>
 ```
 
-in child component:
+#### Use Table Context:
 
 ```tsx
 // T is you data type
