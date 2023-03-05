@@ -83,7 +83,7 @@ Use content list table:
 #### Use Table Context:
 
 ```tsx
-// T is you data type
+// T is your data type
 const {state, dispatch} = useTableContext<T>();
 ```
 
