@@ -11,7 +11,7 @@ const TableContext = <T extends TableRecord = TableRecord>({
   useEffect(() => {
     if (state.initialized) return
 
-    dispatch({ type: 'initialize', payload: props as TableProps })
+    dispatch({ type: 'initialize', payload: { columns: props.columns } as TableProps })
   }, [props, state.initialized, dispatch])
 
   return <>{children}</>
