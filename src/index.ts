@@ -1,13 +1,13 @@
 import { TableContextProvider, useTableContext } from './context'
-import { default as TableContext } from './TableContext'
 import { getPropByString } from './helpers/getPropByString'
+import { injectRouteParamsToInitialState } from './helpers/injectRouteParamsToInitialState'
 import type { TableColumnType, TableSortOrder, TableProps, TableRecord, TableFilterType, TableSortType } from './types'
 
 export {
-  TableContext,
   TableContextProvider,
   useTableContext,
   getPropByString,
+  injectRouteParamsToInitialState,
   type TableColumnType,
   type TableSortOrder,
   type TableProps,
