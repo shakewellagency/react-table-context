@@ -23,7 +23,7 @@ var TableContext = function (_a) {
   ;(0, react_1.useEffect)(
     function () {
       if (state.initialized) return
-      dispatch({ type: 'initialize', payload: { columns: props.columns } })
+      dispatch({ type: 'initialize', payload: props })
     },
     [props, state.initialized, dispatch],
   )
