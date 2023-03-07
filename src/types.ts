@@ -57,23 +57,29 @@ export type TableSortType<T extends TableRecord = TableRecord> = {
   order: TableSortOrder
 }
 
-export type TableState<T extends TableRecord = TableRecord> = TableProps<T> & {
-  data: T[]
-  initialized: boolean
+export type TablePaginationRouteKeys = 'page' | 'per_page'
+
+export type TablePaginationProps = {
   page: number
   perPage: number
   total: number
+  from?: number
+  to?: number
   hasPrevPage: boolean
   hasNextPage: boolean
   lastPage: number
-  selectableItemIds: number[]
-  selected: number[]
-  from?: number
-  to?: number
-  isAllSelected?: boolean
-  sort?: TableSortType<T>
-  filters?: TableFilterType<T>[]
 }
+
+export type TableState<T extends TableRecord = TableRecord> = TableProps<T> &
+  TablePaginationProps & {
+    data: T[]
+    initialized: boolean
+    selectableItemIds: number[]
+    selected: number[]
+    isAllSelected?: boolean
+    sort?: TableSortType<T>
+    filters?: TableFilterType<T>[]
+  }
 
 export type TableContextProps<T extends TableRecord = TableRecord> = {
   state: TableState<T>

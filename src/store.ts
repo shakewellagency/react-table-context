@@ -1,5 +1,6 @@
 import { TableState } from './types'
 import { SetPagination, TableAction } from './action'
+import { injectPaginationToRouteParams } from './helpers/injectPaginationToRouteParams'
 
 export const initialState: TableState = {
   initialized: false,
@@ -22,6 +23,8 @@ const setPagination = (state: TableState, action: SetPagination['payload']): Tab
   const from = action.from !== undefined ? action.from : state.from
   const to = action.to !== undefined ? action.to : state.to
   const lastPage = Math.ceil(total / perPage)
+
+  injectPaginationToRouteParams({ page, perPage })
 
   return {
     ...state,

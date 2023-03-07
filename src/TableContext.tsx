@@ -1,4 +1,4 @@
-import { TableProps, TableRecord, TableState } from './types'
+import { TableProps, TableRecord } from './types'
 import { useTableContext } from './context'
 import { useEffect } from 'react'
 
@@ -11,7 +11,7 @@ const TableContext = <T extends TableRecord = TableRecord>({
   useEffect(() => {
     if (state.initialized) return
 
-    dispatch({ type: 'initialize', payload: props as TableState })
+    dispatch({ type: 'initialize', payload: { columns: props.columns } as TableProps })
   }, [props, state.initialized, dispatch])
 
   return <>{children}</>
