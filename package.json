@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AliGhaleyan/react-table-context.git"
+    "url": "git+https://github.com/shakewellagency/react-table-context.git"
   },
   "author": "AliGhaleyan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AliGhaleyan/react-table-context/issues"
+    "url": "https://github.com/shakewellagency/react-table-context/issues"
   },
-  "homepage": "https://github.com/AliGhaleyan/react-table-context#readme",
+  "homepage": "https://github.com/shakewellagency/react-table-context#readme",
   "dependencies": {
     "typescript": "^4.9.5"
   },
