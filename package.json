@@ -1,6 +1,6 @@
 {
   "name": "react-table-context",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "Table Context Manager",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -46,7 +46,8 @@
   "keywords": [
     "react",
     "typescript",
-    "awesome-project"
+    "table",
+    "react-table"
   ],
   "peerDependencies": {}
 }
