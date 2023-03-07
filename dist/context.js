@@ -18,14 +18,10 @@ exports.useTableContext = exports.TableContextProvider = exports.TableContext = 
 var jsx_runtime_1 = require('react/jsx-runtime')
 var react_1 = require('react')
 var store_1 = require('./store')
-var injectRouteParamsToInitialState_1 = require('./helpers/injectRouteParamsToInitialState')
 exports.TableContext = (0, react_1.createContext)(undefined)
 var TableContextProvider = function (_a) {
   var children = _a.children
-  var _b = (0, react_1.useReducer)(
-      store_1.reducer,
-      (0, injectRouteParamsToInitialState_1.injectRouteParamsToInitialState)(store_1.initialState),
-    ),
+  var _b = (0, react_1.useReducer)(store_1.reducer, store_1.initialState),
     state = _b[0],
     dispatch = _b[1]
   return (0, jsx_runtime_1.jsx)(
