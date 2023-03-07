@@ -1,1 +1,1 @@
-export declare function getQueryParams(): URLSearchParams;
+export declare function getQueryParams(): URLSearchParams
