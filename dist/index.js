@@ -1,6 +1,6 @@
 'use strict'
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.injectRouteParamsToInitialState =
+exports.injectRouteParamsToValues =
   exports.getPropByString =
   exports.useTableContext =
   exports.TableContextProvider =
@@ -26,10 +26,10 @@ Object.defineProperty(exports, 'getPropByString', {
   },
 })
 var injectRouteParamsToInitialState_1 = require('./helpers/injectRouteParamsToInitialState')
-Object.defineProperty(exports, 'injectRouteParamsToInitialState', {
+Object.defineProperty(exports, 'injectRouteParamsToValues', {
   enumerable: true,
   get: function () {
-    return injectRouteParamsToInitialState_1.injectRouteParamsToInitialState
+    return injectRouteParamsToInitialState_1.injectRouteParamsToValues
   },
 })
 //# sourceMappingURL=index.js.map
