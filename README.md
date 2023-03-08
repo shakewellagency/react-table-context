@@ -6,6 +6,7 @@ table states.
 Let us create and manage your table states. You just create the UI :)
 
 #### Install
+
 ```
 npm install react-table-context
 
@@ -13,70 +14,112 @@ yarn add react-table-context
 ```
 
 ### Usage:
+
 Create your table component:
+
 ```tsx
-import { TableProps, TableRecord } from "react-table-context";
+import {TableProps, TableRecord, injectRouteParamsToValues} from "react-table-context";
 
 const TableHeader: React.FC = () => {
- const {dispatch, state: {columns, sort}} = useTableContext();
+  const {dispatch, state: {columns, sort}} = useTableContext();
 
- const handleOnClick = () => {
-  const order = sort?.order == "asc" ? "desc" : "asc";
-  dispatch({
-   type: "set-sort",
-   payload: {key: column.key as string, order}
-  });
- };
- 
- return <thead>
- <tr>
-  {columns.map((column, key) => {
-    if (column.type == "action") return <th />;
-    
-    return <th onClick={handleOnClick}>{column.title}</th>;
-  })}
- </tr>
- </thead>;
+  const handleOnClick = () => {
+    const order = sort?.order == "asc" ? "desc" : "asc";
+    dispatch({
+      type: "set-sort",
+      payload: {key: column.key as string, order}
+    });
+  };
+
+  return <thead>
+  <tr>
+    {columns.map((column, key) => {
+      if (column.type == "action") return <th/>;
+
+      return <th onClick={handleOnClick}>{column.title}</th>;
+    })}
+  </tr>
+  </thead>;
 }
 
-const Table = <T extends TableRecord = TableRecord>(props: TableProps<T>) => {
- return <TableContext {...props}>
-  <table>
-   <TableHeader />
+type Props<T extends TableRecord = TableRecord> = TableProps<T> & {
+  data: T[],
+  perPage?: number,
+  total?: number;
+  from?: number;
+  to?: number;
+};
 
-   {/* ... */}
-  </table>
- </TableContext>;
+const Table = <T extends TableRecord = TableRecord>(props: Props<T>) => {
+  const {dispatch, state: {page, perPage, initialized}} = useTableContext<Content>();
+
+  useEffect(() => {
+    if (initialized) return;
+
+    dispatch({
+      type: "initialize",
+      payload: {
+        columns: props.columns,
+        ...injectRouteParamsToValues({
+          page,
+          perPage: props.perPage || perPage,
+        }),
+      },
+    });
+  }, [initialized, dispatch]);
+
+  useEffect(() => {
+    if (props.data)
+      dispatch({type: "set-data", payload: {data: props.data}});
+  }, [props.data]);
+
+  useEffect(() => {
+    if (props.total && props.from && props.to) {
+      dispatch({
+        type: "set-pagination",
+        payload: {
+          total: props.total,
+          from: props.from,
+          to: props.to,
+        },
+      });
+    }
+  }, [props.total, props.from, props.to]);
+
+  return <table>
+    <TableHeader/>
+
+    {/* ... */}
+  </table>;
 };
 
 export default Table;
 ```
+
 Content list table:
+
 ```tsx
 import {TableColumnType, useTableContext} from "react-table-context";
 
 const columns: TableColumnType<Content>[] = [
- {title: "Title", key: "title", dataIndex: "title"},
+  {title: "Title", key: "title", dataIndex: "title"},
 ];
 
 const ContentListTable: React.Fc = () => {
- const {state: {sort, filters}} = useTableContext<Content>();
- const contentQuery = useContentsQuery({sort, filters});
+  const {state: {sort, filters, initialized}} = useTableContext<Content>();
+  const contentQuery = useContentsQuery({sort, filters, enabled: initialized});
 
- useEffect(() => {
-   if (contentQuery.data)
-    dispatch({type: "set-data", payload: {data: contentQuery.data}});
- }, [contentQuery.data]);
- 
- return <Table columns={columns}/>;
+  return <Table data={contentQuery.data ?? []} columns={columns}/>;
 };
 
 export default ContentListTable;
 ```
+
 Use content list table:
+
 ```tsx
 <TableContextProvider>
-    <ContentListTable />
+  <ContentListTable/>
 </TableContextProvider>
 ```
 
@@ -111,16 +154,17 @@ const {state, dispatch} = useTableContext<T>();
 | to            | `number or undefined`                                                                                                |                                                                     |
 
 ### Actions
+
 | Type              | Payload                                                  |
 |-------------------|----------------------------------------------------------|
- | set-data          | `{ data: TableRecord[], selectableItemIds?: number[] }`  |
- | set-selected      | `{ ids: number[] }`                                      |
- | toggle-selected   | `{ id: number }`                                         |
+| set-data          | `{ data: TableRecord[], selectableItemIds?: number[] }`  |
+| set-selected      | `{ ids: number[] }`                                      |
+| toggle-selected   | `{ id: number }`                                         |
 | toggle-select-all |                                                          |
 | set-sort          | `TableSortType`                                          |
- | set-filter        | `TableFilterType<T extends TableRecord = TableRecord>`   |
- | set-filters       | `TableFilterType<T extends TableRecord = TableRecord>[]` |
+| set-filter        | `TableFilterType<T extends TableRecord = TableRecord>`   |
+| set-filters       | `TableFilterType<T extends TableRecord = TableRecord>[]` |
 | go-to-page        | `{ page: number }`                                       |
- | next-page         |                                                          |
+| next-page         |                                                          |
 | prev-page         |                                                          |
 | set-pagination    | `{ page?: number; perPage?: number; total?: number, from?: number; to?: number }`  |
