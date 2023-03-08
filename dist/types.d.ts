@@ -1,18 +1,16 @@
+/// <reference types="react" />
 import { TableAction } from './action'
-
-export type TableRecord = { id: number } & Record<string, unknown>
-
+export type TableRecord = {
+  id: number
+} & Record<string, unknown>
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
 }
-
 type ColumnRenderFunction<T extends TableRecord = TableRecord> = (
   item: T,
   column: TableColumnType<T>,
 ) => string | React.ReactElement
-
 type ColumnRenderActionsFunction<T extends TableRecord = TableRecord> = (item: T) => string | React.ReactElement
-
 export type TableColumnType<T extends TableRecord = TableRecord> =
   | ({
       title: string
@@ -21,8 +19,14 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
       type?: undefined
       renderActions?: ColumnRenderActionsFunction<T>
     } & (
-      | { dataIndex: DotNestedKeys<T>; render?: ColumnRenderFunction<T> }
-      | { dataIndex?: DotNestedKeys<T>; render: ColumnRenderFunction<T> }
+      | {
+          dataIndex: DotNestedKeys<T>
+          render?: ColumnRenderFunction<T>
+        }
+      | {
+          dataIndex?: DotNestedKeys<T>
+          render: ColumnRenderFunction<T>
+        }
     ))
   | {
       title?: string
@@ -33,7 +37,6 @@ export type TableColumnType<T extends TableRecord = TableRecord> =
       render?: ColumnRenderFunction<T>
       renderActions?: ColumnRenderActionsFunction<T>
     }
-
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
 type DotNestedKeys<T> = (
   T extends object
@@ -44,19 +47,15 @@ type DotNestedKeys<T> = (
 ) extends infer D
   ? Extract<D, string>
   : never
-
 export type TableFilterType<T extends TableRecord = TableRecord, Value = unknown> = {
   key: keyof T
   value: Value
 }
-
 export type TableSortOrder = 'asc' | 'desc'
-
 export type TableSortType<T extends TableRecord = TableRecord> = {
   key: keyof T
   order: TableSortOrder
 }
-
 export type TablePaginationProps = {
   page: number
   perPage: number
@@ -67,7 +66,6 @@ export type TablePaginationProps = {
   hasNextPage: boolean
   lastPage: number
 }
-
 export type TableState<T extends TableRecord = TableRecord> = TableProps<T> &
   TablePaginationProps & {
     data: T[]
@@ -78,8 +76,8 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> &
     sort?: TableSortType<T>
     filters?: TableFilterType<T>[]
   }
-
 export type TableContextProps<T extends TableRecord = TableRecord> = {
   state: TableState<T>
   dispatch: React.Dispatch<TableAction<T>>
 }
+export {}

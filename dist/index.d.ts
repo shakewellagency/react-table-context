@@ -9,7 +9,6 @@ import type {
   TableSortType,
   TablePaginationProps,
 } from './types'
-
 export {
   TableContextProvider,
   useTableContext,
