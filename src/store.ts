@@ -42,7 +42,13 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
       return { ...state, ...action.payload, initialized: true }
     case 'set-data': {
       const selectableItemIds = action.payload.selectableItemIds ?? action.payload.data.map((x) => x.id)
-      return { ...state, data: action.payload.data, selectableItemIds }
+      return {
+        ...state,
+        data: action.payload.data,
+        selectableItemIds,
+        isAllSelected: action.payload.isAllSelected ?? false,
+        selected: action.payload.selected ?? []
+      }
     }
     case 'set-selected':
       return {
