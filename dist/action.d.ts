@@ -4,7 +4,6 @@ type SetData = {
   payload: {
     data: TableRecord[]
     selectableItemIds?: number[]
-    isAllSelected?: boolean
     selected?: number[]
   }
 }

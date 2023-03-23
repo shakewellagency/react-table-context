@@ -71,11 +71,12 @@ var reducer = function (state, action) {
           : action.payload.data.map(function (x) {
               return x.id
             })
+      var selected = (_b = action.payload.selected) !== null && _b !== void 0 ? _b : []
       return __assign(__assign({}, state), {
         data: action.payload.data,
         selectableItemIds: selectableItemIds,
-        isAllSelected: (_b = action.payload.isAllSelected) !== null && _b !== void 0 ? _b : false,
         selected: (_c = action.payload.selected) !== null && _c !== void 0 ? _c : [],
+        isAllSelected: !!selectableItemIds.length && selected.length == selectableItemIds.length,
       })
     }
     case 'set-selected':
