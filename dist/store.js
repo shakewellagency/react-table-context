@@ -60,7 +60,7 @@ var setPagination = function (state, action) {
   })
 }
 var reducer = function (state, action) {
-  var _a, _b, _c, _d
+  var _a, _b, _c, _d, _e, _f
   switch (action.type) {
     case 'initialize':
       return __assign(__assign(__assign({}, state), action.payload), { initialized: true })
@@ -71,7 +71,12 @@ var reducer = function (state, action) {
           : action.payload.data.map(function (x) {
               return x.id
             })
-      return __assign(__assign({}, state), { data: action.payload.data, selectableItemIds: selectableItemIds })
+      return __assign(__assign({}, state), {
+        data: action.payload.data,
+        selectableItemIds: selectableItemIds,
+        isAllSelected: (_b = action.payload.isAllSelected) !== null && _b !== void 0 ? _b : false,
+        selected: (_c = action.payload.selected) !== null && _c !== void 0 ? _c : [],
+      })
     }
     case 'set-selected':
       return __assign(__assign({}, state), {
@@ -79,7 +84,7 @@ var reducer = function (state, action) {
         isAllSelected: action.payload.ids.length === state.selectableItemIds.length,
       })
     case 'toggle-selected': {
-      var temp = __spreadArray([], (_b = state.selected) !== null && _b !== void 0 ? _b : [], true)
+      var temp = __spreadArray([], (_d = state.selected) !== null && _d !== void 0 ? _d : [], true)
       if (temp.includes(action.payload.id)) temp.splice(temp.indexOf(action.payload.id), 1)
       else temp.push(action.payload.id)
       return __assign(__assign({}, state), {
@@ -93,7 +98,7 @@ var reducer = function (state, action) {
     case 'set-sort':
       return __assign(__assign({}, state), { sort: action.payload })
     case 'set-filter': {
-      var filters = __spreadArray([], (_c = state.filters) !== null && _c !== void 0 ? _c : [], true)
+      var filters = __spreadArray([], (_e = state.filters) !== null && _e !== void 0 ? _e : [], true)
       var index = filters.findIndex(function (x) {
         return x.key == action.payload.key
       })
@@ -109,7 +114,7 @@ var reducer = function (state, action) {
     case 'go-to-page':
       return setPagination(state, { page: action.payload.page })
     case 'next-page':
-      return setPagination(state, { page: ((_d = state.page) !== null && _d !== void 0 ? _d : 0) + 1 })
+      return setPagination(state, { page: ((_f = state.page) !== null && _f !== void 0 ? _f : 0) + 1 })
     case 'prev-page':
       return setPagination(state, { page: state.page ? state.page - 1 : 1 })
     case 'set-pagination':

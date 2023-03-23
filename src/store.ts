@@ -47,7 +47,7 @@ export const reducer = (state: TableState, action: TableAction): TableState => {
         data: action.payload.data,
         selectableItemIds,
         isAllSelected: action.payload.isAllSelected ?? false,
-        selected: action.payload.selected ?? []
+        selected: action.payload.selected ?? [],
       }
     }
     case 'set-selected':
