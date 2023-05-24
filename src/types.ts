@@ -1,6 +1,6 @@
 import { TableAction } from './action'
 
-export type TableRecordID = string | number;
+export type TableRecordID = string | number
 
 export type TableRecord = { id: TableRecordID } & Record<string, unknown>
 

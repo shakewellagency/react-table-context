@@ -1,4 +1,4 @@
-import {TableFilterType, TableProps, TableRecord, TableRecordID, TableSortType} from './types'
+import { TableFilterType, TableProps, TableRecord, TableRecordID, TableSortType } from './types'
 
 type SetData = {
   type: 'set-data'
