@@ -1,6 +1,8 @@
 import { TableAction } from './action'
 
-export type TableRecord = { id: number } & Record<string, unknown>
+export type TableRecordID = string | number;
+
+export type TableRecord = { id: TableRecordID } & Record<string, unknown>
 
 export type TableProps<T extends TableRecord = TableRecord> = {
   columns: TableColumnType<T>[]
@@ -72,8 +74,8 @@ export type TableState<T extends TableRecord = TableRecord> = TableProps<T> &
   TablePaginationProps & {
     data: T[]
     initialized: boolean
-    selectableItemIds: number[]
-    selected: number[]
+    selectableItemIds: TableRecordID[]
+    selected: TableRecordID[]
     isAllSelected?: boolean
     sort?: TableSortType<T>
     filters?: TableFilterType<T>[]

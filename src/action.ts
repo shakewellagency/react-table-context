@@ -1,11 +1,11 @@
-import { TableFilterType, TableProps, TableRecord, TableSortType } from './types'
+import {TableFilterType, TableProps, TableRecord, TableRecordID, TableSortType} from './types'
 
 type SetData = {
   type: 'set-data'
   payload: {
     data: TableRecord[]
-    selectableItemIds?: number[]
-    selected?: number[]
+    selectableItemIds?: TableRecordID[]
+    selected?: TableRecordID[]
   }
 }
 
