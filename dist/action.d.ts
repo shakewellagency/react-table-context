@@ -10,13 +10,13 @@ type SetData = {
 type ToggleSelectedAction = {
   type: 'toggle-selected'
   payload: {
-    id: number
+    id: TableRecordID
   }
 }
 type SetSelectedAction = {
   type: 'set-selected'
   payload: {
-    ids: number[]
+    ids: TableRecordID[]
   }
 }
 type ToggleSelectedAllAction = {
